@@ -49,3 +49,6 @@ fi;
 dots checkout
 dots config status.showUntrackedFiles no
 ```
+
+##
+The teto.png speaks to my soul, please have a look and enjoy. Thank you.
