@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+file=$1
+w=$2
+h=$3
+x=$4
+y=$5
+
+filetype="$( file -Lb --mime-type "$file")"
+
+if [[ "$filetype" =~ ^image ]]; then
+    kitty +kitten icat --silent --stdin no --transfer-mode file --place "${w}x${h}@${x}x${y}" "$file" < /dev/null > /dev/tty
+    exit 1
+fi
+
+if [[ "$filetype" =~ ^video ]]; then
+    # vidthumb is from here:
+    # https://raw.githubusercontent.com/duganchen/kitty-pistol-previewer/main/vidthumb
+    # *.avi|*.mp4|*.wmv|*.dat|*.3gp|*.ogv|*.mkv|*.mpg|*.mpeg|*.vob|*.fl[icv]|*.m2v|*.mov|*.webm|*.ts|*.mts|*.m4v|*.r[am]|*.qt|*.divx)
+    kitty +kitten icat --silent --stdin no --transfer-mode file --place "${w}x${h}@${x}x${y}" "$(~/.config/lf/vidthumb "$file")" < /dev/null > /dev/tty
+    exit 1
+fi
+
+# this creates a new image every time you go over the pdf
+# for epubs, use `epub-thumbnailer "$file" "$CACHE" 1024`
+if [[ "$filetype" == "application/pdf" ]]; then
+    CACHE=$(mktemp /tmp/thumbcache.XXXXX)
+    pdftoppm -png -singlefile "$file" "$CACHE"
+    kitty +kitten icat --silent --stdin no --transfer-mode file --place "${w}x${h}@${x}x${y}" "$CACHE.png" < /dev/null > /dev/tty
+    exit 1
+fi
+
+
+case "$file" in
+	*.tgz|*.tar.gz) tar tzf "$file";;
+	*.tar.bz2|*.tbz2) tar tjf "$file";;
+	*.tar.txz|*.txz) xz --list "$file";;
+	*.tar) tar tf "$file";;
+	*.zip|*.jar|*.war|*.ear|*.oxt) unzip -l "$file";;
+	*.rar) unrar l "$file";;
+	*.7z) 7z l "$file";;
+	*.gz) zcat "$file";;
+	*.o) nm "$file" | less ;;
+	*.iso) iso-info --no-header -l "$file";;
+	# *odt,*.ods,*.odp,*.sxw) odt2txt "$file";;
+	# *.doc) catdoc "$file" ;;
+	# *.docx) docx2txt "$file" - ;;
+	*.csv) cat "$file" | sed s/,/\\n/g ;;
+  *.json) jq -C '.' "$file";;
+  *.pem|*.cer|*.crt) openssl x509 -text -noout -in "$file" | sed '/Modulus\:/,/Exponent\:/d' | sed '/Signature\ Value\:/,//d' ;;
+	*.wav|*.mp3|*.flac|*.m4a|*.wma|*.ape|*.ac3|*.og[agx]|*.spx|*.opus|*.as[fx]|*.flac) exiftool "$file";;
+  *.qcow2|*.raw|*.vdi|*.vmdk|*.vhd|*.vhdx) qemu-img info -U --backing-chain "$file";;
+	*) highlight --out-format ansi "$file" || cat "$file";;
+esac

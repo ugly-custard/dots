@@ -1,0 +1,152 @@
+{
+  "height": 20,
+  "layer": "top",
+  "position": "top",
+  "margin-top": 3,
+  "margin-left": 5,
+  "margin-bottom": 0,
+  "margin-right": 5,
+  "spacing": 5,
+  "modules-left": ["custom/launcher", "cpu", "memory", "hyprland/workspaces", "wlr/taskbar"],
+  "modules-center": ["custom/playerctl"],
+  "modules-right": ["tray", "network", "pulseaudio", "clock", "custom/power-menu"],
+  // "modules-left": ["custom/launcher", "cpu", "memory", "wlr/workspaces", "custom/weather"],
+  // "modules-right": ["tray", "backlight", "pulseaudio", "network", "battery", "clock", "custom/power-menu"],
+  "custom/launcher": {
+    "format": " <span color='#6a92d7'>󰊠 </span>",
+    "on-click": "rofi -show drun",
+    "tooltip": false
+  },
+  "cpu": {
+    "interval": 10,
+    "format": "󰄧  {}%",
+    "max-length": 10,
+    "on-click": ""
+  },
+  "memory": {
+    "interval": 30,
+    "format": "  {}%",
+    "format-alt":"  {used:0.1f}G",
+    "max-length": 10
+  },
+  "hyprland/workspaces": {
+    "disable-scroll": false,
+    "all-outputs": true,
+    "active-only": false,
+    "warp-on-scroll": false,
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e-1",
+    "on-scroll-down": "hyprctl dispatch workspace e+1",
+    "format": "{icon}",
+    "format-icons": {
+      // "1": "零",
+      "1": "一",
+      "2": "二",
+      "3": "三",
+      "4": "四",
+      "5": "五",
+      "6": "六",
+      "7": "七",
+      "8": "八",
+      "9": "九",
+      "urgent": "",
+      "focused": "",
+      "default": ""
+    }
+  },
+  "wlr/taskbar": {
+    "on-click": "activate",
+    "on-click-right": "minimize-raise"
+  },
+  "custom/playerctl": {
+    "format": "{icon}",
+    "return-type": "json",
+    "max-length": 64,
+    "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous",
+    // "on-click-right": "aaaaaaaaaaaaaaaaaa",
+    "format-icons": {
+      "Playing": "<span foreground='#b48ead'>󰒮 󰐌 󰒭</span>",
+      "Paused": "<span foreground='#6a92d7'>󰒮 󰏥 󰒭</span>"
+    }
+  },
+  "hyprland/window": {
+    "format": "{}"
+  },
+  "tray": {
+    "spacing": 10
+  },
+  // "bluetooth": {
+  //   "on-click": "~/.config/waybar/scripts/rofi-bluetooth &",
+  //   "format": " {status}"
+  // },
+  "network": {
+    "format-wifi": "  {signalStrength}%",
+    "format-ethernet": "󰈀  wired",
+    "format-disconnected": "󰖪 ",
+    "tooltip-format": "Connected to {essid}\nOn {ifname} via {gwaddr}  ",
+    "on-click-right": "bash ~/.config/hypr/scripts/wifiMenu"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}",
+    "format-muted": "󰖁",
+    "format-bluetooth": "{icon}  {volume}%",
+    "format-bluetooth-muted": "󰖁",
+    "tooltip-format": "{icon} {desc} // {volume}%",
+    "format-icons": {
+      "headphone": " ",
+      "hands-free": "",
+      "headset": "",
+      "phone": " ",
+      "portable": " ",
+      "car": " ",
+      "default": ["", "", " "]
+    },
+    "on-click": "wpctl set-mute $(wpctl status | grep '*' | awk '{print$3}') toggle",
+    "on-click-right": "pavucontrol-qt"
+  },
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": "󰍬 {volume}",
+    "format-source-muted": " ",
+    "tooltip-format": "{format_source} {source_desc} // {source_volume}%",
+    "on-click": "wpctl set-mute $(wpctl status | grep '*' | awk '{print$3}') toggle",
+    "on-click-right": "pavucontrol-qt"
+  },
+  // "backlight": {
+  //   "device": "DP-1",
+  //   "format": "{icon} {percent}%",
+  //   "format-icons": ["", "", "", "", "", "", "", "", ""],
+  //   "on-click": ""
+  // },
+  // "battery": {
+  //   "bat": "BAT0",
+  //   "adapter": "ADP0",
+  //   "interval": 60,
+  //   "states": {
+  //     "warning": 30,
+  //     "critical": 15
+  //   },
+  //   "max-length": 20,
+  //   "format": "{icon} {capacity}%",
+  //   "format-warning": "{icon} {capacity}%",
+  //   "format-critical": "{icon} {capacity}%",
+  //   "format-charging": "<span font-family='Font Awesome 6 Free'></span> {capacity}%",
+  //   "format-plugged": "  {capacity}%",
+  //   "format-alt": "{icon} {time}",
+  //   "format-full": "  {capacity}%",
+  //   "format-icons": [" ", " ", " ", " ", " "]
+  // },
+  "clock": {
+    "format": "<span color='#bf616a'>  </span>{:%I:%M %p}",
+    "format-alt": "<span color='#bf616a'>  </span>{:%a %b %d}",
+    "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "custom/power-menu": {
+    "format": " <span color='#6a92d7'>⏻ </span>",
+    "tooltip": false
+    // "on-click": "bash ~/.config/waybar/scripts/power-menu/powermenu.sh"
+  }
+}

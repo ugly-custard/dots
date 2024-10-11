@@ -1,0 +1,3 @@
+set autocalc
+set default_copy_to_clipboard_cmd="wl-copy -n <"
+set default_paste_from_clipboard_cmd="wl-paste -t text -n"

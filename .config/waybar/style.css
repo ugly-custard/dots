@@ -1,0 +1,125 @@
+* {
+  /* `otf-font-awesome` is required to be installed for icons */
+  font-family: JetBrainsMono Nerd Font, FontAwesome, Noto Sans CJK, sans-serif;
+  font-size: 14px;
+  min-height: 20px;
+}
+
+window#waybar {
+  background-color: transparent;
+  color: #ffffff;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  border-radius: 8px;
+}
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+#clock, #battery, #cpu, #memory, #disk, #tray,
+#temperature, #network, #pulseaudio,
+#custom-power-menu, #custom-launcher, #workspaces,
+#custom-playerctl {
+  padding: 0 10px;
+  color: #e5e5e5;
+  border-radius: 9.5px;
+  background-color: #1f2530;
+}
+
+#workspaces {
+  padding: 0 2px;
+}
+#workspaces button {
+  padding: 0 5px;
+  color: #7984A4;
+  background-color: transparent;
+  /* Use box-shadow instead of border so the text isn't offset */
+  box-shadow: inset 0 -3px transparent;
+  border: none;
+  border-radius: 5;
+}
+#workspaces button.focused {
+  color: #bf616a;
+}
+#workspaces button.active {
+  color: #6a92d7;
+}
+#workspaces button.urgent {
+  background-color: #eb4d4b;
+}
+
+#cpu {
+  color: #fb958b;
+  background-color: #1f2530;
+}
+
+#memory {
+  color: #ebcb8b;
+  background-color: #1f2530;
+}
+
+#custom-power-menu {
+  border-radius: 9.5px;
+  background-color: #1b242b;
+  border-radius: 7.5px;
+  padding: 0 5px;
+}
+
+#custom-launcher {
+  background-color: #1b242b;
+  color: #6a92d7;
+  border-radius: 7.5px;
+  padding: 0 3px;
+}
+
+#pulseaudio {
+  color: #7d9bba;
+}
+
+#clock {
+  color: #c8d2e0;
+  /* background-color: #14141e; */
+}
+
+@keyframes blink {
+  to {
+    background-color: rgba(30, 34, 42, 0.5);
+    color: #abb2bf;
+  }
+}
+label:focus {
+  background-color: #000000;
+}
+
+/* #disk { */
+/*   background-color: #964b00; */
+/* } */
+
+/* #bluetooth { */
+/*   color: #707d9d; */
+/* } */
+/* #bluetooth.disconnected { */
+/*   color: #f53c3c; */
+/* } */
+
+#network {
+  color: #b48ead;
+}
+#network.disconnected {
+  color: #f53c3c;
+}
+
+#temperature {
+  background-color: #f0932b;
+}
+#temperature.critical {
+  background-color: #eb4d4b;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: #eb4d4b;
+}

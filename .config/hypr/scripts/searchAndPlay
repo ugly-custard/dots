@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# install google_speech for tts
+# install python-vosk and vosk's indian english trained model for voice recon
+# VOSK_MODEL_PATH=
+# INVIDIOUS_INSTANCE="https://vid.puffyan.us" # youtube instance, some might not work
+
+# mpc stop
+# mpc clear
+
+# take mic input
+# ffmpeg -y -f alsa -i default ___ -ac 1 -ar 44100 -t 4 -f wav ~/.cache/audio.wav
+
+# convert to text using vosk
+# vosk-transcriber -m $VOSK_MODEL_PATH -i ~/.cache/audio.wav -o ~/.cache/audio_text.txt
+# read audio_input < ~/.cache/audio_text.txt
+
+# google tts to give confirmation
+# google_speech "All right... playing $audio_input" &
+
+# for testing purposes
+# audio_input="mokocchi breaks breathe"
+
+audio_input=$1
+
+query="$(printf '%s' "$audio_input" | tr ' ' '+')"
+videoID=$(curl -s "https://vid.puffyan.us/search?q=$query" | grep -Eo "/watch\?v=.{11}" | head -n 1)
+youtubeURL="https://youtu.be/$videoID"
+audioURL=$(yt-dlp -f bestaudio --get-url $youtubeURL)
+
+mpc add $audioURL
+
+title=$(yt-dlp --get-title "$youtubeURL")
+dunstify "Added" "$audio_input"
