@@ -1,0 +1,73 @@
+(defcfg
+  linux-dev /dev/input/by-id/usb-Evision_Kreo_Hive_RGB-event-kbd
+  log-layer-changes no
+  process-unmapped-keys yes
+  movemouse-smooth-diagonals yes
+  movemouse-inherit-accel-state yes
+)
+
+;;esc       hmpg calc mdia prev next pp        mute vold volu mail
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12 del
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc   ins
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \      end
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret         pgup
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft      up     pgdn
+  lctl lmet lalt           spc            ralt      rctl     left down rght
+)
+
+(deflayer base
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    @bas
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    @nav
+  @esc @a   @s   @d   @f   _    _    @j   @k   @l   @;  _    _         _
+  _    _    _    _    _    _    _    _    _    _    _    _         _    _
+  _    _    _              _              _         _         _    _    _
+)
+
+(deflayer nav
+  _    _    _    _    _    prev next pp   _    mute vold volu _    lrld
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    @bas
+  _    _    _    _    _    _    @mwl @mwd @mwu @mwr _    _    _    @cw  @nav
+  caps lalt lmet lsft lctl _    lft  down up   rght _    _    _         _
+  _    mlft mmid mrgt _    mltp @ma← @ma↓ @ma↑ @ma→ mrtp -         _    _
+  _    _    _              @msp           _         _         _    _    _
+)
+
+(defvar
+  tap-timeout   200
+  hold-timeout  200
+  tt $tap-timeout
+  ht $hold-timeout
+)
+
+(defalias
+  bas (tap-hold $tt $ht ins (layer-switch base))
+  nav (tap-hold $tt $ht end (layer-switch nav))
+
+  esc (tap-hold-press $tt $ht esc (layer-while-held nav))
+  cw (caps-word 2000)
+
+  ;; Home-row mods
+  a (tap-hold $tt $ht a lalt)
+  s (tap-hold $tt $ht s lmet)
+  d (tap-hold $tt $ht d lsft)
+  f (tap-hold $tt $ht f lctl)
+  j (tap-hold $tt $ht j rctl)
+  k (tap-hold $tt $ht k rsft)
+  l (tap-hold $tt $ht l rmet)
+  ; (tap-hold $tt $ht ; ralt)
+
+  ;; Mouse wheel emulation
+  mwl (mwheel-left  100 120)
+  mwd (mwheel-down  100 120)
+  mwu (mwheel-up    100 120)
+  mwr (mwheel-right 100 120)
+
+  ma← (movemouse-accel-left 3 2000 1 2)
+  ma↓ (movemouse-accel-down 3 2000 1 2)
+  ma↑ (movemouse-accel-up 3 2000 1 2)
+  ma→ (movemouse-accel-right 3 2000 1 2)
+
+  msp (tap-hold $tt $ht spc (movemouse-speed 200))
+)
