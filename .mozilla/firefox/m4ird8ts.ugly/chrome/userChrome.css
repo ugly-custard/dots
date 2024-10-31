@@ -2,17 +2,5 @@
 @import 'includes/cascade-macchiato.css';
 
 @import 'includes/cascade-layout.css';
-@import 'includes/cascade-responsive.css';
-@import 'includes/cascade-floating-panel.css';
 
-@import 'includes/cascade-tcr.css';
-@import 'includes/cascade-nav-bar.css';
-@import 'includes/cascade-tabs.css';
-@import 'includes/cascade-sideview.css';
-
-/* @import 'includes/win-context.css'; */
-
-#webrtcIndicator {
-  display: none !important;
-}
-
+@import 'includes/cascade-sideberry.css';
