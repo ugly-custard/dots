@@ -110,8 +110,6 @@
   [inDOMFullscreen="true"] .titlebar-buttonbox-container {
     transform: translateY(-100px)
   }
-
-
 }
 
 /* Windows specific styles */
@@ -242,6 +240,11 @@
   will-change: min-width;
 }
 
+:where(#main-window[inFullscreen]) #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] {
+  min-width: 1px !important;
+  max-width: 1px !important;
+}
+
 /* positioned=true means sidebar docked to the right */
 #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"][positionend="true"] {
   position: absolute;
@@ -285,6 +288,6 @@
   border-left-style: solid !important;
 }
 
-#sidebar-splitter {
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]+#sidebar-splitter {
   display: none !important;
 }
