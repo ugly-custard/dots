@@ -29,6 +29,7 @@ configuration {
 
 window {
   width: 40%;
+  border-radius: 8px;
   background-color: @bg;
 }
 

@@ -32,6 +32,8 @@ html:not(.style-scope) {
 
   --unthemed-yet: inherit !important;
 
+  --size-lyrics: 1.3 !important;
+
   --ytmusic-scrollbar-width: 0px !important;
   --ytd-scrollbar-width: 0px !important;
   --yt-spec-commerce-filled-hover: var(--ctp-accent) !important;
@@ -48,6 +50,7 @@ i.material-icons:hover {
 
 body {
   background: var(--ctp-base) !important;
+  scroll-behavior: smooth !important;
 }
 
 ytmusic-nav-bar {
@@ -1527,4 +1530,12 @@ div.cet-titlebar.cet-linux.inactive {
 div.cet-titlebar.cet-linux {
   background-color: var(--ctp-mantle) !important;
   color: var(--ctp-text) !important;
+}
+
+.text-lyrics {
+  transform-origin: unset !important;
+}
+
+#side-panel {
+  width: 40% !important;
 }
