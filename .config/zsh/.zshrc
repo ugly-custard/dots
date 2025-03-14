@@ -28,5 +28,13 @@ plug "zap-zsh/fzf"
 
 fastfetch
 
+export FZF_DEFAULT_COMMANDS="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMANDS"
+export FZF_ALT_C_COMMAND="fd --type d --hidden --strip-cwd-prefix --exclude .git"
+export FZF_DEFAULT_OPTS="--height 40% --layout=default --border --preview 'bat --color=always --style=header,grid --line-range :500 {}'"
+export FZF_TMUX_OPTS=" -p90%,70% "
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always -n --line-range :500 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
 #eval "$(thefuck --alias)"
 eval "$(starship init zsh)"

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+lang=$(echo -e "eng\njpn\njpn_vert" | rofi -dmenu -p "Select language:")
+if [ -z $lang ]; then
+    exit 1
+fi
+sleep 0.5
+grimblast --freeze copy area && wl-paste | tesseract -l $lang stdin stdout | wl-copy
+notify-send -a "OCR" "Text copied to clipboard" "$(wl-paste)"

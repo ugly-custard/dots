@@ -31,4 +31,4 @@ audioURL=$(yt-dlp -f bestaudio --get-url $youtubeURL)
 mpc add $audioURL
 
 title=$(yt-dlp --get-title "$youtubeURL")
-dunstify "Added" "$audio_input"
+notify-send -a "Search n Play" "Added" "$audio_input"

@@ -2,5 +2,5 @@
 X=$(hyprpicker -a -n)
 if [[ $X ]]; then
     convert xc:$(wl-paste) /tmp/color.png
-    dunstify --icon=/tmp/color.png "$(wl-paste)" "Copied to clipboard"
+    notify-send -a "HyprPicker" --icon=/tmp/color.png "$(wl-paste)" "Copied to clipboard"
 fi
