@@ -1,3 +1,4 @@
+/* [sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] */
 #TabsToolbar:not([customizing="true"]) {
   visibility: collapse !important;
 }
@@ -21,22 +22,21 @@
   /* transition: min-width var(--transition-time) linear !important; */
 }
 
-#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]>#sidebar {
+#sidebar {
   transition: min-width 0.15s linear var(--uc-autohide-sidebar-delay) !important;
   min-width: var(--uc-sidebar-width) !important;
   will-change: min-width;
 }
 
-#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:hover>#sidebar {
+#sidebar:hover {
   min-width: var(--uc-sidebar-hover-width) !important;
-  transition-delay: 0ms !important
 }
 
-:where(#main-window[inFullscreen]) #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"],
+/* :where(#main-window[inFullscreen]) #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"],
 :where(#main-window[inFullscreen]) #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]>#sidebar {
   min-width: 1px !important;
   max-width: 1px !important;
-}
+} */
 
 #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]+#sidebar-splitter {
   display: none !important;
