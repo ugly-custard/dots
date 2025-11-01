@@ -1,5 +1,5 @@
 #!/bin/sh
-X=$(hyprpicker -a -n)
+X=$(hyprpicker -a)
 if [[ $X ]]; then
     convert xc:$(wl-paste) /tmp/color.png
     notify-send -a "HyprPicker" --icon=/tmp/color.png "$(wl-paste)" "Copied to clipboard"
